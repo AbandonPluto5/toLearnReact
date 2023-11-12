@@ -146,6 +146,41 @@
       "date": "2023-11-12T10:21:49.419Z",
       "useFor": "game",
       "id": 28
+    },
+    {
+      "type": "pay",
+      "money": -10000,
+      "date": "2023-11-11T16:00:00.000Z",
+      "useFor": "longdistance",
+      "id": 29
+    },
+    {
+      "type": "pay",
+      "money": -10000,
+      "date": "2023-11-11T16:00:00.000Z",
+      "useFor": "longdistance",
+      "id": 30
+    },
+    {
+      "type": "pay",
+      "money": -20,
+      "date": "2023-11-10T16:00:00.000Z",
+      "useFor": "audio",
+      "id": 31
+    },
+    {
+      "type": "income",
+      "money": 3330,
+      "date": "2023-11-10T16:00:00.000Z",
+      "useFor": "salary",
+      "id": 32
+    },
+    {
+      "type": "income",
+      "money": 5000000,
+      "date": "2023-11-11T16:00:00.000Z",
+      "useFor": "overtimepay",
+      "id": 33
     }
   ]
 }
