@@ -83,6 +83,69 @@
       "date": "2023-04-03T11:14:56.036Z",
       "useFor": "food",
       "id": 19
+    },
+    {
+      "type": "pay",
+      "money": -1000,
+      "date": "2023-11-12T10:07:53.481Z",
+      "useFor": "audio",
+      "id": 20
+    },
+    {
+      "type": "pay",
+      "money": 0,
+      "date": "2023-11-12T10:13:14.450Z",
+      "useFor": "",
+      "id": 21
+    },
+    {
+      "type": "pay",
+      "money": -10000,
+      "date": "2023-11-12T10:13:25.277Z",
+      "useFor": "",
+      "id": 22
+    },
+    {
+      "type": "pay",
+      "money": -10000,
+      "date": "2023-11-12T10:13:33.791Z",
+      "useFor": "longdistance",
+      "id": 23
+    },
+    {
+      "type": "pay",
+      "money": -10000,
+      "date": "2023-11-12T10:13:50.417Z",
+      "useFor": "longdistance",
+      "id": 24
+    },
+    {
+      "type": "pay",
+      "money": -10,
+      "date": "2023-11-12T10:15:41.782Z",
+      "useFor": "dessert",
+      "id": 25
+    },
+    {
+      "type": "pay",
+      "money": 0,
+      "date": "2023-11-12T10:20:58.778Z",
+      "useFor": "",
+      "id": 26
+    },
+    {
+      "type": "pay",
+      "money": -1000,
+      "date": "2023-11-12T10:21:45.661Z",
+      "useFor": "",
+      "id": 27
+    },
+    {
+      "type": "pay",
+      "money": -1000,
+      "date": "2023-11-12T10:21:49.419Z",
+      "useFor": "game",
+      "id": 28
     }
   ]
 }
