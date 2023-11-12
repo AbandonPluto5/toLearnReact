@@ -6,10 +6,11 @@ import dayjs from "dayjs";
 import "./index.scss";
 import { useSelector } from "react-redux";
 import _ from "lodash";
+import DailyBill from "./components/DailyBill";
 
 const Month = () => {
   const billList = useSelector((state) => state.bill.billList);
-  // 类似vue的计算属性
+  // 类似vue的计算属性 根据月分组数据
   const monthGroup = useMemo(() => {
     return _.groupBy(billList, (item) => dayjs(item.date).format("YYYY-MM"));
   }, [billList]);
@@ -51,6 +52,18 @@ const Month = () => {
     if (monthGroup[formatDate]) setCurrentMonthList(monthGroup[formatDate]);
     else setCurrentMonthList([]);
   };
+
+  // 当前月根据日分组数据
+  const dayGroup = useMemo(() => {
+    const dayBill = _.groupBy(currentMonthList, (item) =>
+      dayjs(item.date).format("YYYY-MM-DD")
+    );
+    const keys = Object.keys(dayBill);
+    return {
+      dayBill,
+      keys,
+    };
+  }, [currentMonthList]);
 
   return (
     <div className="monthlyBill">
@@ -94,6 +107,14 @@ const Month = () => {
             onConfirm={onConfirm}
           />
         </div>
+        {/* 单日列表 */}
+        {dayGroup.keys.map((key) => (
+          <DailyBill
+            key={key}
+            date={key}
+            billList={dayGroup.dayBill[key]}
+          ></DailyBill>
+        ))}
       </div>
     </div>
   );
