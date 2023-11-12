@@ -1,6 +1,6 @@
 import { NavBar, DatePicker } from "antd-mobile";
 import classNames from "classnames";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 
 import "./index.scss";
@@ -20,14 +20,6 @@ const Month = () => {
   );
 
   const [currentMonthList, setCurrentMonthList] = useState([]);
-  const onConfirm = (date) => {
-    setDateVisible(false);
-    const formatDate = dayjs(date).format("YYYY-MM");
-    setCurrentDate(formatDate);
-    // 获取当月的数据
-    if (monthGroup[formatDate]) setCurrentMonthList(monthGroup[formatDate]);
-    else setCurrentMonthList([]);
-  };
 
   const monthResult = useMemo(() => {
     // 支出 / 收入 / 结余
@@ -43,6 +35,23 @@ const Month = () => {
       total: pay + income,
     };
   }, [currentMonthList]);
+
+  // 初始化时把当前月的账单渲染出来
+  useEffect(() => {
+    const nowDate = dayjs(new Date()).format("YYYY-MM");
+    if (monthGroup[nowDate]) setCurrentMonthList(monthGroup[nowDate]);
+    else setCurrentMonthList([]);
+  }, [monthGroup]);
+
+  const onConfirm = (date) => {
+    setDateVisible(false);
+    const formatDate = dayjs(date).format("YYYY-MM");
+    setCurrentDate(formatDate);
+    // 获取当月的数据
+    if (monthGroup[formatDate]) setCurrentMonthList(monthGroup[formatDate]);
+    else setCurrentMonthList([]);
+  };
+
   return (
     <div className="monthlyBill">
       <NavBar className="nav" backArrow={false}>
