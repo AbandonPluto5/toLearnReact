@@ -11,6 +11,15 @@
 - Redux
 - json-server
 - react-router-dom
+- useReducer
+- useMemo
+- memo
+- useCallback
+- forwardRef
+- useImperativeHandle
+- Class 类组件
+- 类组件生命周期
+- 类组件通信
 
 ## redux-meituan Redux 美团购物车案例
 
