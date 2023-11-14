@@ -20,6 +20,7 @@
 - Class 类组件
 - 类组件生命周期
 - 类组件通信
+- zustand 状态管理工具
 
 ## redux-meituan Redux 美团购物车案例
 
