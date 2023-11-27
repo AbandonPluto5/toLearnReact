@@ -21,6 +21,8 @@
 - 类组件生命周期
 - 类组件通信
 - zustand 状态管理工具
+- useDebugValue 在开发者工具中调试自定义 hooks 的数据
+- useDeferredValue 延迟更新部分 UI
 
 ## redux-meituan Redux 美团购物车案例
 
