@@ -7,3 +7,7 @@ export const getChannelsAPI = () => {
 export const createArticleAPI = (data) => {
   return request.post(`/mp/articles?draft=false`, data);
 };
+
+export const getArticleList = (params) => {
+  return request.get("/mp/articles", params);
+};
