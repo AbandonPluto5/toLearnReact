@@ -15,3 +15,11 @@ export const getArticleListAPI = (params) => {
 export const delArticleAPI = (id) => {
   return request.delete(`/mp/articles/${id}`);
 };
+
+export const getDetailAPI = (id) => {
+  return request.get(`/mp/articles/${id}`);
+};
+
+export const editArticleAPI = (id, data) => {
+  return request.put(`/mp/articles/${id}?draft=false`, data);
+};
