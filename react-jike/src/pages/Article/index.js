@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   Breadcrumb,
@@ -7,6 +7,7 @@ import {
   Radio,
   DatePicker,
   Select,
+  Popconfirm,
 } from "antd";
 import locale from "antd/es/date-picker/locale/zh_CN";
 
@@ -15,7 +16,7 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import img404 from "@/assets/error.png";
 import { useChannel } from "@/hooks/useChannel";
 import { useEffect, useState } from "react";
-import { getArticleList } from "@/apis/article";
+import { getArticleListAPI, delArticleAPI } from "@/apis/article";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -33,6 +34,8 @@ const status = {
 
 const Article = () => {
   const { channelList } = useChannel();
+
+  const navigate = useNavigate();
   // 准备列数据
   const columns = [
     {
@@ -78,18 +81,32 @@ const Article = () => {
       render: (data) => {
         return (
           <Space size="middle">
-            <Button type="primary" shape="circle" icon={<EditOutlined />} />
             <Button
               type="primary"
-              danger
               shape="circle"
-              icon={<DeleteOutlined />}
+              icon={<EditOutlined />}
+              onClick={() => navigate(`/publish?id=${data.id}`)}
             />
+            <Popconfirm
+              title="删除提醒"
+              description="确认要删除当前文章吗？"
+              onConfirm={() => onConfirm(data.id)}
+              okText="确定"
+              cancelText="取消"
+            >
+              <Button
+                type="primary"
+                danger
+                shape="circle"
+                icon={<DeleteOutlined />}
+              />
+            </Popconfirm>
           </Space>
         );
       },
     },
   ];
+
   // 准备表格body数据
   const [list, setList] = useState([]);
   const [total, setTotal] = useState(0);
@@ -98,13 +115,13 @@ const Article = () => {
     channel_id: null,
     begin_pubdate: null,
     end_pubdate: null,
-    page: null,
+    page: 1,
     per_page: 4,
   });
 
   useEffect(() => {
     const getList = async () => {
-      const res = await getArticleList(reqData);
+      const res = await getArticleListAPI(reqData);
       setList(res.data.results);
       setTotal(res.data.total_count);
     };
@@ -128,6 +145,12 @@ const Article = () => {
       page,
     });
   };
+
+  const onConfirm = async (id) => {
+    await delArticleAPI(id);
+    setReqData({ ...reqData });
+  };
+
   return (
     <div>
       <Card
