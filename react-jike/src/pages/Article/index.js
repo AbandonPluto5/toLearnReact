@@ -20,6 +20,17 @@ import { getArticleList } from "@/apis/article";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
+const status = {
+  1: {
+    text: "待审核",
+    color: "warning",
+  },
+  2: {
+    text: "审核通过",
+    color: "success",
+  },
+};
+
 const Article = () => {
   const { channelList } = useChannel();
   // 准备列数据
@@ -42,7 +53,9 @@ const Article = () => {
     {
       title: "状态",
       dataIndex: "status",
-      render: (data) => <Tag color="green">审核通过</Tag>,
+      render: (data) => (
+        <Tag color={status[data].color}>{status[data].text}</Tag>
+      ),
     },
     {
       title: "发布时间",
@@ -80,16 +93,41 @@ const Article = () => {
   // 准备表格body数据
   const [list, setList] = useState([]);
   const [total, setTotal] = useState(0);
+  const [reqData, setReqData] = useState({
+    status: null,
+    channel_id: null,
+    begin_pubdate: null,
+    end_pubdate: null,
+    page: null,
+    per_page: 4,
+  });
 
   useEffect(() => {
     const getList = async () => {
-      const res = await getArticleList();
+      const res = await getArticleList(reqData);
       setList(res.data.results);
       setTotal(res.data.total_count);
     };
     getList();
-  }, []);
+  }, [reqData]);
 
+  const onFinish = (formValue) => {
+    console.log(formValue);
+    setReqData({
+      ...reqData,
+      status: formValue.status,
+      channel_id: formValue.channel_id,
+      begin_pubdate: formValue.date[0].format("YYYY-MM-HH"),
+      end_pubdate: formValue.date[1].format("YYYY-MM-HH"),
+    });
+  };
+
+  const onPageChange = (page) => {
+    setReqData({
+      ...reqData,
+      page,
+    });
+  };
   return (
     <div>
       <Card
@@ -103,7 +141,7 @@ const Article = () => {
         }
         style={{ marginBottom: 20 }}
       >
-        <Form initialValues={{ status: "" }}>
+        <Form initialValues={{ status: "" }} onFinish={onFinish}>
           <Form.Item label="状态" name="status">
             <Radio.Group>
               <Radio value={""}>全部</Radio>
@@ -135,7 +173,16 @@ const Article = () => {
         </Form>
       </Card>
       <Card title={`根据筛选条件共查询到 ${total} 条结果：`}>
-        <Table rowKey="id" columns={columns} dataSource={list} />
+        <Table
+          rowKey="id"
+          columns={columns}
+          dataSource={list}
+          pagination={{
+            total: total,
+            pageSize: reqData.per_page,
+            onChange: onPageChange,
+          }}
+        />
       </Card>
     </div>
   );

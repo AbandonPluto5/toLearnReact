@@ -9,5 +9,5 @@ export const createArticleAPI = (data) => {
 };
 
 export const getArticleList = (params) => {
-  return request.get("/mp/articles", params);
+  return request.get("/mp/articles", { params });
 };
