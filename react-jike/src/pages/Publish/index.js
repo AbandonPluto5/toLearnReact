@@ -15,14 +15,14 @@ import { Link } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./index.scss";
-import { useEffect, useState } from "react";
-import { getChannelsAPI, createArticleAPI } from "@/apis/article";
+import { useState } from "react";
+import { createArticleAPI } from "@/apis/article";
+import { useChannel } from "@/hooks/useChannel.js";
 
 const { Option } = Select;
 
 const Publish = () => {
-  const [channelList, setChannelList] = useState([]);
-
+  const { channelList } = useChannel();
   const onFinish = (value) => {
     console.log(value);
     if (imageType !== imageList.length) {
@@ -41,13 +41,6 @@ const Publish = () => {
     };
     createArticleAPI(reqData);
   };
-  useEffect(() => {
-    const getChannelList = async () => {
-      const res = await getChannelsAPI();
-      setChannelList(res.data.channels);
-    };
-    getChannelList();
-  }, []);
 
   const [imageList, setImageList] = useState([]);
   const onChange = (value) => {
